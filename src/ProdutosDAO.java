@@ -10,8 +10,9 @@
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
@@ -24,10 +25,13 @@ public class ProdutosDAO {
     
     public void cadastrarProduto (ProdutosDTO produto){
         
-        
-        //conn = new conectaDAO().connectDB();
-        
-        
+        try{
+            conn = new conectaDAO().connectDB();
+                
+            Statement st = conn.createStatement(); 
+            st.executeUpdate("INSERT INTO produtos (nome,valor,status) VALUES ('"+produto.getNome()+"','"+produto.getValor()+"','"+produto.getStatus()+"')");
+        }
+        catch(SQLException ex){ }
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
